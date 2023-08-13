@@ -1,15 +1,32 @@
-function add(a,b) {
-  return a + b;
-}
+const buttons = document.querySelectorAll(".btn");
+let numbers = [];
+let firstNum = "";
+let secondNum = "";
+let operator = "";
 
-function sub(a,b) {
-  return a - b;
-}
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    numbers.push(button.value)
 
-function multi(a,b) {
-  return a * b;
-}
+    if (button.value === "+") {
+      firstNum = Number(numbers.slice(0, numbers.indexOf("+")).join(""))
+      operator = "+"
 
-function div(a,b) {
-  return a / b;
-}
+    } else if (button.value === "=") {
+      secondNum = Number(numbers.slice((numbers.indexOf("+") + 1), -1).join(""))
+      console.log(math_it_up[operator](firstNum, secondNum))
+      
+    } else if (button.value === "ac") {
+      numbers = []
+      firstNum = ""
+      secondNum = "" 
+      operator = ""
+    }
+
+  })
+})
+
+const math_it_up = {
+  '+': function (x, y) { return x + y },
+  '-': function (x, y) { return x - y }
+};
