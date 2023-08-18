@@ -13,6 +13,7 @@ buttons.forEach(button => {
     if (/\w/.test(button.value)) {
       if (button.value === "ac") {
         allClear()
+        para.textContent = ""
         return
       }
       numbers.push(button.value)
@@ -34,11 +35,7 @@ buttons.forEach(button => {
       displayValue = calculate[operator](+firstNum, +secondNum);
       para.textContent = displayValue;
 
-      displayValue = "";
-      firstNum = "";
-      secondNum = "";
-      numbers = [];
-      operator = "";
+      allClear();
 
       // show result first and use clicked operator for next calculation
     } else if (/[+\-*/]/.test(button.value) && operator) {
@@ -59,7 +56,6 @@ function allClear() {
   secondNum = ""; 
   operator = "";
   displayValue = "";
-  para.textContent = ""
 }
 
 const calculate = {
