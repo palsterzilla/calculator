@@ -1,10 +1,10 @@
 const buttons = document.querySelectorAll(".btn");
-const para = document.createElement("p")
+const para = document.querySelector(".display");
 let numbers = [];
 let firstNum = "";
 let secondNum = "";
 let operator = "";
-let displayValue = ""
+let displayValue = "";
 
 buttons.forEach(button => {
   button.addEventListener("click", () => {
@@ -18,7 +18,6 @@ buttons.forEach(button => {
       numbers.push(button.value)
       displayValue += button.value
       para.textContent = displayValue
-      document.body.appendChild(para)
 
       // assign firstNum from input
     } else if (/[+\-*/]/.test(button.value) && !operator) {
