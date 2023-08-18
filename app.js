@@ -29,9 +29,7 @@ buttons.forEach(button => {
       numbers = [];
       
       // calculate both operand and display result to page
-    } else if (
-        (button.value === "=" && firstNum) ||
-        (/[+\-*/]/.test(button.value) && operator)) {
+    } else if (button.value === "=" && firstNum) {
       secondNum = numbers.join("");
       firstNum = calculate[operator](+firstNum, +secondNum);
       displayValue = "";
@@ -39,7 +37,16 @@ buttons.forEach(button => {
 
       secondNum = "";
       numbers = [];
+      operator = "";
 
+    } else if (/[+\-*/]/.test(button.value) && operator) {
+      secondNum = numbers.join("");
+      firstNum = calculate[operator](+firstNum, +secondNum);
+      displayValue = "";
+      para.textContent = firstNum;
+
+      secondNum = "";
+      numbers = [];
     }
   })
 })
