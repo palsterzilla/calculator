@@ -8,48 +8,39 @@ let displayValue = ""
 
 buttons.forEach(button => {
   button.addEventListener("click", () => {
-    numbers.push(button.value)
     
+    // display input value to page
     if (/\w/.test(button.value)) {
       if (button.value === "ac") {
         allClear()
         return
       }
+      numbers.push(button.value)
       displayValue += button.value
       para.textContent = displayValue
       document.body.appendChild(para)
 
-    } else if (/\W/.test(button.value) && button.value !== "=") {
+      // assign firstNum from input
+    } else if (/[+\-*/]/.test(button.value) && !operator) {
+      if (!firstNum) {
+        firstNum = numbers.join("");
+      }
       displayValue = "";
-      operator = numbers.at(-1)
-
-    }
-
-    if (numbers.filter(x => /\W/.test(x)).length > 1 && button.value !== "=") {
-      firstNum = numbers.slice(0, numbers.indexOf("+")).join("");
-      secondNum = numbers.slice((numbers.indexOf("+") + 1), -1).join("");
+      operator = button.value;
+      numbers = [];
       
+      // calculate both operand and display result to page
+    } else if (
+        (button.value === "=" && firstNum) ||
+        (/[+\-*/]/.test(button.value) && operator)) {
+      secondNum = numbers.join("");
       firstNum = calculate[operator](+firstNum, +secondNum);
-      secondNum = "";
+      displayValue = "";
       para.textContent = firstNum;
 
-      numbers = numbers.slice(-1);
-      numbers.unshift(firstNum);
-      console.log("from if")
-      
-    } else if (button.value === "=") {
-      console.log("from else if")
-      firstNum = numbers.slice(0, numbers.indexOf("+")).join("");
-      secondNum = numbers.slice((numbers.indexOf("+") + 1), -1).join("");
-      
-      firstNum = calculate[operator](+firstNum, +secondNum);
       secondNum = "";
-      para.textContent = firstNum;
-      
-      numbers = []
-      numbers.unshift(firstNum);
-      operator = ""
-      
+      numbers = [];
+
     }
   })
 })
