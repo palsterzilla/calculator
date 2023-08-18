@@ -29,7 +29,7 @@ buttons.forEach(button => {
       numbers = [];
       
       // calculate both operand and display result to page
-    } else if (button.value === "=" && firstNum) {
+    } else if (button.value === "=" && firstNum && numbers.length !== 0) {
       secondNum = numbers.join("");
       firstNum = calculate[operator](+firstNum, +secondNum);
       displayValue = "";
