@@ -22,8 +22,10 @@ buttons.forEach(button => {
 
       // assign firstNum from input
     } else if (/[+\-*/]/.test(button.value) && !operator) {
-      if (!firstNum) {
+      if (!firstNum && numbers.length !== 0) {
         firstNum = numbers.join("");
+      } else {
+        firstNum = para.textContent;
       }
       displayValue = "";
       operator = button.value;
@@ -41,9 +43,9 @@ buttons.forEach(button => {
     } else if (/[+\-*/]/.test(button.value) && operator) {
       secondNum = numbers.join("");
       firstNum = calculate[operator](+firstNum, +secondNum);
-      displayValue = "";
       para.textContent = firstNum;
-
+      
+      displayValue = "";
       secondNum = "";
       numbers = [];
     }
