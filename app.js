@@ -31,14 +31,16 @@ buttons.forEach(button => {
       // calculate both operand and display result to page
     } else if (button.value === "=" && firstNum && numbers.length !== 0) {
       secondNum = numbers.join("");
-      firstNum = calculate[operator](+firstNum, +secondNum);
-      displayValue = "";
-      para.textContent = firstNum;
+      displayValue = calculate[operator](+firstNum, +secondNum);
+      para.textContent = displayValue;
 
+      displayValue = "";
+      firstNum = "";
       secondNum = "";
       numbers = [];
       operator = "";
 
+      // show result first and use clicked operator for next calculation
     } else if (/[+\-*/]/.test(button.value) && operator) {
       secondNum = numbers.join("");
       firstNum = calculate[operator](+firstNum, +secondNum);
