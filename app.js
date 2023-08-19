@@ -68,5 +68,5 @@ const calculate = {
   '+': (x, y) => { return roundNum(x + y) },
   '-': (x, y) => { return roundNum(x - y) },
   '*': (x, y) => { return roundNum(x * y) },
-  '/': (x, y) => { return roundNum(x / y) },
+  '/': (x, y) => { return y != 0 ? roundNum(x / y) : "lol!" },
 };
