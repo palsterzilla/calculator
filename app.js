@@ -18,16 +18,21 @@ buttons.forEach(button => {
       displayValue += button.value
       para.textContent = displayValue
 
+      // return if pressed operand first before num
+    } else if (/[+\-*/]/.test(button.value) && !para.textContent) {
+      console.log("no para")
+      return
+
       // assign firstNum from input
     } else if (/[+\-*/]/.test(button.value) && !operator) {
-      // console.log("no op")
+      console.log("no op")
       firstNum = para.textContent;
       displayValue = "";
       operator = button.value;
       
       // calculate both operand and display result to page
     } else if (button.value === "=" && firstNum) {
-      // console.log("equal")
+      console.log("equal")
       secondNum = para.textContent;
       displayValue = calculate[operator](+firstNum, +secondNum);
       para.textContent = displayValue;
@@ -36,7 +41,7 @@ buttons.forEach(button => {
 
       // show result first and use clicked operator for next calculation
     } else if (/[+\-*/]/.test(button.value) && firstNum) {
-      // console.log("with op")
+      console.log("with op")
       secondNum = para.textContent;
       firstNum = calculate[operator](+firstNum, +secondNum);
       para.textContent = firstNum;
