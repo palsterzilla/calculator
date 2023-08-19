@@ -1,6 +1,5 @@
 const buttons = document.querySelectorAll(".btn");
 const para = document.querySelector(".display");
-let numbers = [];
 let firstNum = "";
 let secondNum = "";
 let operator = "";
@@ -16,44 +15,39 @@ buttons.forEach(button => {
         para.textContent = ""
         return
       }
-      numbers.push(button.value)
       displayValue += button.value
       para.textContent = displayValue
 
       // assign firstNum from input
     } else if (/[+\-*/]/.test(button.value) && !operator) {
-      if (!firstNum && numbers.length !== 0) {
-        firstNum = numbers.join("");
-      } else {
-        firstNum = para.textContent;
-      }
+      // console.log("no op")
+      firstNum = para.textContent;
       displayValue = "";
       operator = button.value;
-      numbers = [];
       
       // calculate both operand and display result to page
-    } else if (button.value === "=" && firstNum && numbers.length !== 0) {
-      secondNum = numbers.join("");
+    } else if (button.value === "=" && firstNum) {
+      // console.log("equal")
+      secondNum = para.textContent;
       displayValue = calculate[operator](+firstNum, +secondNum);
       para.textContent = displayValue;
 
       allClear();
 
       // show result first and use clicked operator for next calculation
-    } else if (/[+\-*/]/.test(button.value) && operator) {
-      secondNum = numbers.join("");
+    } else if (/[+\-*/]/.test(button.value) && firstNum) {
+      // console.log("with op")
+      secondNum = para.textContent;
       firstNum = calculate[operator](+firstNum, +secondNum);
       para.textContent = firstNum;
       
       displayValue = "";
       secondNum = "";
-      numbers = [];
     }
   })
 })
 
 function allClear() {
-  numbers = [];
   firstNum = "";
   secondNum = ""; 
   operator = "";
