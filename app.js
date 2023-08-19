@@ -60,9 +60,13 @@ function allClear() {
   displayValue = "";
 }
 
+function roundNum(num) {
+  return Math.round((num + Number.EPSILON) * 10000000) / 10000000
+}
+
 const calculate = {
-  '+': function (x, y) { return x + y },
-  '-': function (x, y) { return x - y },
-  '*': function (x, y) { return x * y },
-  '/': function (x, y) { return x / y },
+  '+': (x, y) => { return roundNum(x + y) },
+  '-': (x, y) => { return roundNum(x - y) },
+  '*': (x, y) => { return roundNum(x * y) },
+  '/': (x, y) => { return roundNum(x / y) },
 };
