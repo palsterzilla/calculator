@@ -11,20 +11,20 @@ buttons.forEach(button => {
     // display input value to page
     if (/\w/.test(button.value)) {
       if (button.value === "ac") {
-        allClear()
-        para.textContent = ""
+        allClear();
+        para.textContent = "0";
         return
       }
-      displayValue += button.value
-      para.textContent = displayValue
+      displayValue += button.value;
+      para.textContent = displayValue;
 
       // return if pressed operand first before num
-    } else if (/[+\-*/]/.test(button.value) && !para.textContent) {
+    } else if (/[+\-*/]/.test(button.value) && para.textContent == "0") {
       console.log("no para")
       return
 
       // assign firstNum from input
-    } else if (/[+\-*/]/.test(button.value) && !operator) {
+    } else if (/[+\-*/]/.test(button.value) && !firstNum) {
       console.log("no op")
       firstNum = para.textContent;
       displayValue = "";
@@ -45,7 +45,8 @@ buttons.forEach(button => {
       secondNum = para.textContent;
       firstNum = calculate[operator](+firstNum, +secondNum);
       para.textContent = firstNum;
-      
+
+      operator = button.value;
       displayValue = "";
       secondNum = "";
     }
