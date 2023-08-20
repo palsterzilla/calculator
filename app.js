@@ -1,5 +1,6 @@
 const buttons = document.querySelectorAll(".btn");
 const para = document.querySelector(".display");
+const decimal = document.querySelector(".decimal");
 let firstNum = "";
 let secondNum = "";
 let operator = "";
@@ -11,12 +12,16 @@ buttons.forEach(button => {
 
 function operate() {
   // display input value to page
-  if (/\w/.test(this.value)) {
+  if (/[\w\.]/.test(this.value)) {
     if (this.value === "ac") {
       allClear();
       para.textContent = "0";
       return
+
+    } else if (this.value === ".") {
+      decimal.disabled = true;
     }
+
     displayValue += this.value;
     para.textContent = displayValue;
 
@@ -31,6 +36,7 @@ function operate() {
     firstNum = para.textContent;
     displayValue = "";
     operator = this.value;
+    decimal.disabled = false;
     
     // calculate both operand and display result to page
   } else if (this.value === "=" && firstNum) {
@@ -38,6 +44,7 @@ function operate() {
     secondNum = para.textContent;
     displayValue = calculate[operator](+firstNum, +secondNum);
     para.textContent = displayValue;
+    decimal.disabled = false;
 
     allClear();
 
@@ -47,6 +54,7 @@ function operate() {
     secondNum = para.textContent;
     firstNum = calculate[operator](+firstNum, +secondNum);
     para.textContent = firstNum;
+    decimal.disabled = false;
 
     operator = this.value;
     displayValue = "";
