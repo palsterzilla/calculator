@@ -21,13 +21,13 @@ function operate() {
     console.log("no para")
     return
 
+  } else if (this.value === "ac") {
+    allClear();
+    display.textContent = "0";
+    return 
+
     // display input value to page, only operand
-  } else if (/[\w]/.test(this.value) && this.value !== "sign") {
-    if (this.value === "ac") {
-      allClear();
-      display.textContent = "0";
-      return
-    } 
+  } else if (/[\d]/.test(this.value)) {
     displayValue += this.value;
     display.textContent = +displayValue.substring(0,9);
 
@@ -86,6 +86,9 @@ function operate() {
     displayValue = calculate[this.value](display.textContent);
     display.textContent = displayValue.substring(0,9);
 
+  } else if (this.value === "delete") {
+    displayValue = displayValue.slice(0, -1);
+    display.textContent = displayValue.substring(0,9);
   }
 }
 
