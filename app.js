@@ -47,7 +47,7 @@ function operate() {
   } else if (this.value === "=" && firstNum && operator) {
     console.log("equal")
     secondNum = para.textContent;
-    displayValue = calculate[operator](+firstNum, +secondNum);
+    displayValue = calculate[operator](firstNum, secondNum);
     para.textContent = displayValue;
     decimal.disabled = false;
 
@@ -57,7 +57,7 @@ function operate() {
   } else if (/[+\-*/]/.test(this.value) && firstNum && operator) {
     console.log("with op")
     secondNum = para.textContent;
-    firstNum = calculate[operator](+firstNum, +secondNum);
+    firstNum = calculate[operator](firstNum, secondNum);
     para.textContent = firstNum;
     decimal.disabled = false;
 
@@ -68,7 +68,7 @@ function operate() {
   } else if (this.value === "%" && para.textContent != 0) {
     console.log("percent")
     firstNum = para.textContent;
-    displayValue = calculate[this.value](+firstNum);
+    displayValue = calculate[this.value](firstNum);
     firstNum = displayValue;
     para.textContent = displayValue.substring(0,9);
 
@@ -90,9 +90,9 @@ function roundNum(num) {
 }
 
 const calculate = {
-  '+': (x, y) => { return roundNum(x + y) },
-  '-': (x, y) => { return roundNum(x - y) },
-  '*': (x, y) => { return roundNum(x * y) },
-  '%': (x)    => { return (x / 100).toString() },
-  '/': (x, y) => { return y != 0 ? roundNum(x / y) : "lol!" },
+  '+': (x, y) => { return roundNum(+x + +y).toString() },
+  '-': (x, y) => { return roundNum(+x - +y).toString() },
+  '*': (x, y) => { return roundNum(+x * +y).toString() },
+  '%': (x)    => { return (+x / 100).toString() },
+  '/': (x, y) => { return y != "0" ? roundNum(+x / +y).toString() : "lol!" },
 };
