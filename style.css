@@ -1,0 +1,15 @@
+button:disabled {
+  background-color: buttonface;
+  color: buttontext;
+  border-color: buttonborder;
+}
+
+button {
+  margin: 1px;
+  border-radius: 5%;
+  border: none;
+  font-weight: initial;
+  font-size: 2em;
+  font-family: monospace;
+  color: black;
+}

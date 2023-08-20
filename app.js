@@ -12,19 +12,24 @@ buttons.forEach(button => {
 
 function operate() {
   // display input value to page
-  if (/[\w\.]/.test(this.value)) {
+  if (/[\w]/.test(this.value)) {
     if (this.value === "ac") {
       allClear();
       para.textContent = "0";
       return
-
-    } else if (this.value === ".") {
-      decimal.disabled = true;
-    }
-
+    } 
     displayValue += this.value;
     para.textContent = displayValue;
 
+    // if pressed decimal
+  } else if (/\./.test(this.value)) {
+    if (!displayValue) {
+      displayValue = "0"
+    }
+    decimal.disabled = true
+    displayValue += this.value;
+    para.textContent = displayValue;
+    
     // return if pressed operand first before num
   } else if (/[+\-*/]/.test(this.value) && para.textContent == "0") {
     console.log("no para")
