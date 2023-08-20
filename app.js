@@ -23,7 +23,7 @@ function operate() {
 
     // if pressed decimal
   } else if (/\./.test(this.value)) {
-    if (!displayValue) {
+    if (para.textContent == "0") {
       displayValue = "0"
     }
     decimal.disabled = true
@@ -36,7 +36,7 @@ function operate() {
     return
 
     // assign firstNum from input
-  } else if (/[+\-*/]/.test(this.value) && !firstNum) {
+  } else if (/[+\-*/]/.test(this.value) && !operator) {
     console.log("no op")
     firstNum = para.textContent;
     displayValue = "";
@@ -44,7 +44,7 @@ function operate() {
     decimal.disabled = false;
     
     // calculate both operand and display result to page
-  } else if (this.value === "=" && firstNum) {
+  } else if (this.value === "=" && firstNum && operator) {
     console.log("equal")
     secondNum = para.textContent;
     displayValue = calculate[operator](+firstNum, +secondNum);
@@ -54,7 +54,7 @@ function operate() {
     allClear();
 
     // show result first and use clicked operator for next calculation
-  } else if (/[+\-*/]/.test(this.value) && firstNum) {
+  } else if (/[+\-*/]/.test(this.value) && firstNum && operator) {
     console.log("with op")
     secondNum = para.textContent;
     firstNum = calculate[operator](+firstNum, +secondNum);
@@ -64,6 +64,17 @@ function operate() {
     operator = this.value;
     displayValue = "";
     secondNum = "";
+
+  } else if (this.value === "%" && para.textContent != 0) {
+    console.log("percent")
+    firstNum = para.textContent;
+    displayValue = calculate[this.value](+firstNum)
+    firstNum = displayValue;
+    para.textContent = displayValue;
+
+    if (para.textContent.includes(".")) {
+      decimal.disabled = true;
+    }
   }
 }
 
@@ -82,5 +93,6 @@ const calculate = {
   '+': (x, y) => { return roundNum(x + y) },
   '-': (x, y) => { return roundNum(x - y) },
   '*': (x, y) => { return roundNum(x * y) },
+  '%': (x)    => { return x / 100 },
   '/': (x, y) => { return y != 0 ? roundNum(x / y) : "lol!" },
 };
