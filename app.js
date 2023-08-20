@@ -19,7 +19,7 @@ function operate() {
       return
     } 
     displayValue += this.value;
-    para.textContent = displayValue;
+    para.textContent = +displayValue;
 
     // if pressed decimal
   } else if (/\./.test(this.value)) {
