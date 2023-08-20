@@ -94,6 +94,7 @@ function allClear() {
   secondNum = ""; 
   operator = "";
   displayValue = "";
+  decimal.disabled = false;
 }
 
 function roundNum(num) {
