@@ -21,8 +21,8 @@ function operate() {
     console.log("no para")
     return
 
-    // display input value to page
-  } else if (/[\w]/.test(this.value)) {
+    // display input value to page, only operand
+  } else if (/[\w]/.test(this.value) && this.value !== "sign") {
     if (this.value === "ac") {
       allClear();
       para.textContent = "0";
@@ -79,6 +79,13 @@ function operate() {
     if (para.textContent.includes(".")) {
       decimal.disabled = true;
     }
+    
+    // if pressing sign
+  } else if (this.value === "sign" && para.textContent !== "0") {
+    console.log("sign")
+    displayValue = calculate[this.value](para.textContent);
+    para.textContent = displayValue.substring(0,9);
+
   }
 }
 
@@ -94,9 +101,10 @@ function roundNum(num) {
 }
 
 const calculate = {
-  '+': (x, y) => { return roundNum(+x + +y).toString() },
-  '-': (x, y) => { return roundNum(+x - +y).toString() },
-  '*': (x, y) => { return roundNum(+x * +y).toString() },
-  '%': (x)    => { return (+x / 100).toString() },
-  '/': (x, y) => { return y != "0" ? roundNum(+x / +y).toString() : "lol!" },
+  '+':    (x, y) => { return roundNum(+x + +y).toString() },
+  '-':    (x, y) => { return roundNum(+x - +y).toString() },
+  '*':    (x, y) => { return roundNum(+x * +y).toString() },
+  '%':    (x)    => { return (+x / 100).toString() },
+  'sign': (x)    => { return (+x * -1).toString() },
+  '/':    (x, y) => { return y != "0" ? roundNum(+x / +y).toString() : "lol!" },
 };
