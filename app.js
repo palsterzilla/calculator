@@ -11,17 +11,27 @@ buttons.forEach(button => {
 })
 
 function operate() {
-  // display input value to page
-  if (/[\w]/.test(this.value)) {
+  //  return if 0 already present in display value
+  if (this.value === "0" && para.textContent == "0") {
+    console.log('zero')
+    return
+
+    // return if pressing operand first before any numbers
+  } else if (/[+\-*/]/.test(this.value) && para.textContent == "0") {
+    console.log("no para")
+    return
+
+    // display input value to page
+  } else if (/[\w]/.test(this.value)) {
     if (this.value === "ac") {
       allClear();
       para.textContent = "0";
       return
     } 
     displayValue += this.value;
-    para.textContent = +displayValue;
+    para.textContent = +displayValue.substring(0,9);
 
-    // if pressed decimal
+    // if pressing decimal
   } else if (/\./.test(this.value)) {
     if (para.textContent == "0") {
       displayValue = "0"
@@ -30,11 +40,6 @@ function operate() {
     displayValue += this.value;
     para.textContent = displayValue;
     
-    // return if pressed operand first before num
-  } else if (/[+\-*/]/.test(this.value) && para.textContent == "0") {
-    console.log("no para")
-    return
-
     // assign firstNum from input
   } else if (/[+\-*/]/.test(this.value) && !operator) {
     console.log("no op")
@@ -65,13 +70,12 @@ function operate() {
     displayValue = "";
     secondNum = "";
 
-  } else if (this.value === "%" && para.textContent != 0) {
+    // if pressing percent
+  } else if (this.value === "%" && para.textContent != "0") {
     console.log("percent")
-    firstNum = para.textContent;
-    displayValue = calculate[this.value](firstNum);
-    firstNum = displayValue;
+    displayValue = calculate[this.value](para.textContent);
     para.textContent = displayValue.substring(0,9);
-
+    
     if (para.textContent.includes(".")) {
       decimal.disabled = true;
     }
