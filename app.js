@@ -68,9 +68,9 @@ function operate() {
   } else if (this.value === "%" && para.textContent != 0) {
     console.log("percent")
     firstNum = para.textContent;
-    displayValue = calculate[this.value](+firstNum)
+    displayValue = calculate[this.value](+firstNum);
     firstNum = displayValue;
-    para.textContent = displayValue;
+    para.textContent = displayValue.substring(0,9);
 
     if (para.textContent.includes(".")) {
       decimal.disabled = true;
@@ -93,6 +93,6 @@ const calculate = {
   '+': (x, y) => { return roundNum(x + y) },
   '-': (x, y) => { return roundNum(x - y) },
   '*': (x, y) => { return roundNum(x * y) },
-  '%': (x)    => { return x / 100 },
+  '%': (x)    => { return (x / 100).toString() },
   '/': (x, y) => { return y != 0 ? roundNum(x / y) : "lol!" },
 };
