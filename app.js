@@ -11,14 +11,10 @@ buttons.forEach(button => {
 })
 
 function operate() {
-  //  return if 0 already present in display value
-  if (this.value === "0" && display.textContent == "0") {
-    console.log('zero')
-    return
-
-    // return if pressing operand first before any numbers
-  } else if (/[+\-*/]/.test(this.value) && display.textContent == "0") {
-    console.log("no para")
+  // return if input multiple 0 or operator first before any number
+  if ((this.value === "0" && display.textContent == "0") ||
+      (/[+\-*/]/.test(this.value) && display.textContent == "0")
+  ) {
     return
 
   } else if (this.value === "ac") {
