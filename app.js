@@ -1,5 +1,5 @@
 const buttons = document.querySelectorAll(".btn");
-const para = document.querySelector(".display");
+const display = document.querySelector(".display");
 const decimal = document.querySelector(".decimal");
 let firstNum = "";
 let secondNum = "";
@@ -12,12 +12,12 @@ buttons.forEach(button => {
 
 function operate() {
   //  return if 0 already present in display value
-  if (this.value === "0" && para.textContent == "0") {
+  if (this.value === "0" && display.textContent == "0") {
     console.log('zero')
     return
 
     // return if pressing operand first before any numbers
-  } else if (/[+\-*/]/.test(this.value) && para.textContent == "0") {
+  } else if (/[+\-*/]/.test(this.value) && display.textContent == "0") {
     console.log("no para")
     return
 
@@ -25,25 +25,25 @@ function operate() {
   } else if (/[\w]/.test(this.value) && this.value !== "sign") {
     if (this.value === "ac") {
       allClear();
-      para.textContent = "0";
+      display.textContent = "0";
       return
     } 
     displayValue += this.value;
-    para.textContent = +displayValue.substring(0,9);
+    display.textContent = +displayValue.substring(0,9);
 
     // if pressing decimal
   } else if (/\./.test(this.value)) {
-    if (para.textContent == "0") {
+    if (display.textContent == "0") {
       displayValue = "0"
     }
     decimal.disabled = true
     displayValue += this.value;
-    para.textContent = displayValue;
+    display.textContent = displayValue;
     
     // assign firstNum from input
   } else if (/[+\-*/]/.test(this.value) && !operator) {
     console.log("no op")
-    firstNum = para.textContent;
+    firstNum = display.textContent;
     displayValue = "";
     operator = this.value;
     decimal.disabled = false;
@@ -51,9 +51,9 @@ function operate() {
     // calculate both operand and display result to page
   } else if (this.value === "=" && firstNum && operator) {
     console.log("equal")
-    secondNum = para.textContent;
+    secondNum = display.textContent;
     displayValue = calculate[operator](firstNum, secondNum);
-    para.textContent = displayValue;
+    display.textContent = displayValue;
     decimal.disabled = false;
 
     allClear();
@@ -61,9 +61,9 @@ function operate() {
     // show result first and use clicked operator for next calculation
   } else if (/[+\-*/]/.test(this.value) && firstNum && operator) {
     console.log("with op")
-    secondNum = para.textContent;
+    secondNum = display.textContent;
     firstNum = calculate[operator](firstNum, secondNum);
-    para.textContent = firstNum;
+    display.textContent = firstNum;
     decimal.disabled = false;
 
     operator = this.value;
@@ -71,20 +71,20 @@ function operate() {
     secondNum = "";
 
     // if pressing percent
-  } else if (this.value === "%" && para.textContent != "0") {
+  } else if (this.value === "%" && display.textContent != "0") {
     console.log("percent")
-    displayValue = calculate[this.value](para.textContent);
-    para.textContent = displayValue.substring(0,9);
+    displayValue = calculate[this.value](display.textContent);
+    display.textContent = displayValue.substring(0,9);
     
-    if (para.textContent.includes(".")) {
+    if (display.textContent.includes(".")) {
       decimal.disabled = true;
     }
     
     // if pressing sign
-  } else if (this.value === "sign" && para.textContent !== "0") {
+  } else if (this.value === "sign" && display.textContent !== "0") {
     console.log("sign")
-    displayValue = calculate[this.value](para.textContent);
-    para.textContent = displayValue.substring(0,9);
+    displayValue = calculate[this.value](display.textContent);
+    display.textContent = displayValue.substring(0,9);
 
   }
 }
