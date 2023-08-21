@@ -24,7 +24,7 @@ function operate(e) {
       (patternOperator.test(this.value) && display.textContent === "0")
   ) return
 
-  if (this.value === "ac") {
+  if (this.value === "ac" || e.key === "Delete") {
     allClear();
     display.textContent = "0";
     return 
@@ -50,11 +50,12 @@ function operate(e) {
     display.textContent = displayValue;
     
     // assign firstNum from input
-  } else if (patternOperator.test(this.value) && !operator) {
+  } else if ( (patternOperator.test(this.value) && !operator) ||
+              (patternOperator.test(e.key) && !operator)) {
     console.log("no op")
     firstNum = display.textContent;
     displayValue = "";
-    operator = this.value;
+    operator = (this.value || key.value);
     decimal.disabled = false;
     
     // calculate both operand and display result to page
