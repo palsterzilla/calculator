@@ -83,9 +83,10 @@ function operate(e) {
     secondNum = "";
 
     // if pressing percent
-  } else if (this.value === "%" && display.textContent != "0") {
+  } else if ( (this.value === "%" && display.textContent != "0") ||
+              (e.key === "%" && display.textContent != "0")) {
     console.log("percent")
-    displayValue = calculate[this.value](display.textContent);
+    displayValue = calculate[(this.value || key.value)](display.textContent);
     display.textContent = displayValue.substring(0,9);
     
     if (display.textContent.includes(".")) {
