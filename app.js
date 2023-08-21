@@ -32,12 +32,12 @@ function operate(e) {
   } else if (patternOperand.test(this.value) || patternOperand.test(e.key)) {
     console.log("operand")
     displayValue += (this.value || key.value);
-    display.textContent = +displayValue.substring(0,9);
+    display.textContent = displayValue.substring(0,9);
 
     // if pressing decimal
   } else if (patternDecimal.test(this.value) || patternDecimal.test(e.key)) {
     console.log("decimal")
-    if (display.textContent == "0") {
+    if (display.textContent == "0" || displayValue == "") {
       displayValue = "0"
 
     } else if (display.textContent.includes(".")) {
