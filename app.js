@@ -13,7 +13,8 @@ buttons.forEach(button => {
 window.addEventListener("keydown", operate);
 
 function operate(e) {
-  const operand = /\d/;
+  const patternOperand = /\d/;
+  const patternDecimal = /\./;
   const key = document.querySelector(`.btn[data-key="${e.key}"]`);
 
   // return if input multiple 0 or operator first before any number
@@ -28,19 +29,23 @@ function operate(e) {
     return 
 
     // display input value to page, only operand
-  } else if (operand.test(this.value) || operand.test(e.key)) {
+  } else if (patternOperand.test(this.value) || patternOperand.test(e.key)) {
     console.log("operand")
     displayValue += (this.value || key.value);
     display.textContent = +displayValue.substring(0,9);
 
     // if pressing decimal
-  } else if (/\./.test(this.value)) {
+  } else if (patternDecimal.test(this.value) || patternDecimal.test(e.key)) {
     console.log("decimal")
     if (display.textContent == "0") {
       displayValue = "0"
+
+    } else if (display.textContent.includes(".")) {
+      e.preventDefault()
+      return false
     }
     decimal.disabled = true
-    displayValue += this.value;
+    displayValue += (this.value || key.value);
     display.textContent = displayValue;
     
     // assign firstNum from input
