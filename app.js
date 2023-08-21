@@ -10,7 +10,12 @@ buttons.forEach(button => {
   button.addEventListener("click", operate)
 })
 
-function operate() {
+window.addEventListener("keydown", operate);
+
+function operate(e) {
+  const operand = /\d/;
+  const key = document.querySelector(`.btn[data-key="${e.key}"]`);
+
   // return if input multiple 0 or operator first before any number
   if ((this.value === "0" && display.textContent == "0") ||
       (/[+\-*/]/.test(this.value) && display.textContent == "0")
@@ -23,12 +28,14 @@ function operate() {
     return 
 
     // display input value to page, only operand
-  } else if (/[\d]/.test(this.value)) {
-    displayValue += this.value;
+  } else if (operand.test(this.value) || operand.test(e.key)) {
+    console.log("operand")
+    displayValue += (this.value || key.value);
     display.textContent = +displayValue.substring(0,9);
 
     // if pressing decimal
   } else if (/\./.test(this.value)) {
+    console.log("decimal")
     if (display.textContent == "0") {
       displayValue = "0"
     }
