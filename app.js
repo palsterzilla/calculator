@@ -59,7 +59,8 @@ function operate(e) {
     decimal.disabled = false;
     
     // calculate both operand and display result to page
-  } else if (this.value === "=" && firstNum && operator) {
+  } else if ( (this.value === "=" && firstNum && operator) ||
+              (e.key === "=" && firstNum && operator)) {
     console.log("equal")
     secondNum = display.textContent;
     displayValue = calculate[operator](firstNum, secondNum);
