@@ -60,7 +60,8 @@ function operate(e) {
     
     // calculate both operand and display result to page
   } else if ( (this.value === "=" && firstNum && operator) ||
-              (e.key === "=" && firstNum && operator)) {
+              (e.key === "=" && firstNum && operator) ||
+              (e.key === "Enter" && firstNum && operator)) {
     console.log("equal")
     secondNum = display.textContent;
     displayValue = calculate[operator](firstNum, secondNum);
