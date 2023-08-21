@@ -101,9 +101,17 @@ function operate(e) {
     display.textContent = displayValue.substring(0,9);
 
     // if pressing delete
-  } else if (this.value === "delete" || e.key === "Backspace") {
-    displayValue = displayValue.slice(0, -1);
-    display.textContent = displayValue.substring(0,9);
+  } else if ( (this.value === "delete" && display.textContent !== "0") ||
+              (e.key === "Backspace" && display.textContent !== "0")) {
+    if (displayValue.length == 1) {
+      displayValue = displayValue.slice(0, -1);
+      display.textContent = "0";
+    } else if (displayValue == "") {
+      display.textContent = "0";
+    } else {
+      displayValue = displayValue.slice(0, -1);
+      display.textContent = displayValue.substring(0,9);
+    }
   }
 }
 
