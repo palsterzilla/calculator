@@ -24,7 +24,7 @@ function operate(e) {
       (patternOperator.test(this.value) && display.textContent === "0")
   ) return
 
-  if (this.value === "ac" || e.key === "Delete") {
+  if (this.value === "ac" || e.key === "Escape") {
     allClear();
     display.textContent = "0";
     return 
