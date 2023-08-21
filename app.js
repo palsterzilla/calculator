@@ -100,7 +100,8 @@ function operate(e) {
     displayValue = calculate[(this.value || key.value)](display.textContent);
     display.textContent = displayValue.substring(0,9);
 
-  } else if (this.value === "delete") {
+    // if pressing delete
+  } else if (this.value === "delete" || e.key === "Backspace") {
     displayValue = displayValue.slice(0, -1);
     display.textContent = displayValue.substring(0,9);
   }
