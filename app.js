@@ -70,14 +70,15 @@ function operate(e) {
     allClear();
 
     // show result first and use clicked operator for next calculation
-  } else if (patternOperator.test(this.value) && firstNum && operator) {
+  } else if ( (patternOperator.test(this.value) && firstNum && operator) ||
+              (patternOperator.test(e.key) && firstNum && operator)) {
     console.log("with op")
     secondNum = display.textContent;
     firstNum = calculate[operator](firstNum, secondNum);
     display.textContent = firstNum;
     decimal.disabled = false;
 
-    operator = this.value;
+    operator = (this.value || key.value);
     displayValue = "";
     secondNum = "";
 
