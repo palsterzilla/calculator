@@ -15,15 +15,16 @@ window.addEventListener("keydown", operate);
 function operate(e) {
   const patternOperand = /\d/;
   const patternDecimal = /\./;
+  const patternOperator = /[+\-*/]/;
   const key = document.querySelector(`.btn[data-key="${e.key}"]`);
 
   // return if input multiple 0 or operator first before any number
-  if ((this.value === "0" && display.textContent == "0") ||
-      (/[+\-*/]/.test(this.value) && display.textContent == "0")
-  ) {
-    return
+  if ((this.value === "0" && display.textContent === "0") ||
+      (e.key === "0" && display.textContent === "0") ||
+      (patternOperator.test(this.value) && display.textContent === "0")
+  ) return
 
-  } else if (this.value === "ac") {
+  if (this.value === "ac") {
     allClear();
     display.textContent = "0";
     return 
@@ -49,7 +50,7 @@ function operate(e) {
     display.textContent = displayValue;
     
     // assign firstNum from input
-  } else if (/[+\-*/]/.test(this.value) && !operator) {
+  } else if (patternOperator.test(this.value) && !operator) {
     console.log("no op")
     firstNum = display.textContent;
     displayValue = "";
@@ -67,7 +68,7 @@ function operate(e) {
     allClear();
 
     // show result first and use clicked operator for next calculation
-  } else if (/[+\-*/]/.test(this.value) && firstNum && operator) {
+  } else if (patternOperator.test(this.value) && firstNum && operator) {
     console.log("with op")
     secondNum = display.textContent;
     firstNum = calculate[operator](firstNum, secondNum);
