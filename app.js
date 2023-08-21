@@ -94,9 +94,10 @@ function operate(e) {
     }
     
     // if pressing sign
-  } else if (this.value === "sign" && display.textContent !== "0") {
+  } else if ( (this.value === "sign" && display.textContent !== "0") ||
+              (e.key === "`" && display.textContent !== "0")) {
     console.log("sign")
-    displayValue = calculate[this.value](display.textContent);
+    displayValue = calculate[(this.value || key.value)](display.textContent);
     display.textContent = displayValue.substring(0,9);
 
   } else if (this.value === "delete") {
